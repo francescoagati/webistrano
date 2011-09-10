@@ -88,6 +88,18 @@
   <script type="text/javascript">
 
     function update_status(){
+
+      document.location=document.location;
+
+      return;
+      $.ajax({
+        url:'<%= project_stage_deployment_path(@project, @stage, @deployment) %>.js',
+        success:function(html) {
+          $("#status_info").html(html);
+        }
+      })
+      
+/*
       new Ajax.Updater('status_info','<%= project_stage_deployment_path(@project, @stage, @deployment) %>.js',{
         method: 'get',
         evalScripts: true,
@@ -96,9 +108,11 @@
           auto_scroll: $('auto_scroll_log').checked
         }
       });
+*/
     }
 
-    setTimeout(update_status, 3000);
-    check_auto_scroll_log();
+
+    setInterval(update_status, 5000);
+    //check_auto_scroll_log();
   </script>
 <% end %>
